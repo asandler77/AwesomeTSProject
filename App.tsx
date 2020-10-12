@@ -8,13 +8,16 @@
 
 import React from 'react';
 import {StyleSheet, Text, View,} from 'react-native';
-import { Component } from 'react';
+import {ActiveBar} from './components/ActiveBar';
 
 
 export default function App() {
     return(
         <View style={styles.body}>
-          <Text>Kukulkhlhlih</Text>
+          <Text>Header</Text>
+            <ActiveBar
+                currentAmount={'10'}
+                totalAmount={'20'}/>
         </View>
     );
 };
