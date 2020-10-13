@@ -3,25 +3,31 @@ import {StyleSheet, Text, View} from 'react-native';
 
 
 export interface ActiveBarProps {
-    usedInternetCapacityAmount: number,
+    currentDeviceUsageInternetCapacityAmount: number,
+    allDevicesUsageInternetCapacityAmount?: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
 
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, usedInternetCapacityAmount, daysLeft}: ActiveBarProps): React.ReactElement => {
+const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft}: ActiveBarProps): React.ReactElement => {
 
-    const currentPercentage = usedInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    const currentPercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
     return (
         <View style={styles.container}>
             <Text style={styles.commonText}>
-                <Text style={styles.currentCapacityAmount}>{usedInternetCapacityAmount}GB</Text> used ({daysLeft} days left)
+                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used ({daysLeft} days left)
             </Text>
             <View style={styles.progressBar}>
                 <View style={[styles.innerBarStyle, {width: currentPercentage + "%"}]}/>
             </View>
-            <View style={styles.allDevicesAndTotalCapacityStyle}>
-                <Text>All devices</Text>
+            <View style={styles.joinBottomItems}>
+                <View style={styles.joinCircleAndAllDevices}>
+                    <View style={styles.outerCircle}>
+                        <View style={styles.innerCircle}/>
+                    </View>
+                    <Text> All devices</Text>
+                </View>
                 <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
             </View>
         </View>
@@ -32,7 +38,7 @@ const ProgressBar = ({totalInternetCapacityAmount, usedInternetCapacityAmount, d
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F7F6F6',
+        backgroundColor: '#F7F6F0',
         height: 110,
         width: '100%',
         justifyContent: 'space-between',
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     totalInternetCapacityAmount: {
-        backgroundColor: 'green',
+        // backgroundColor: 'green',
         textAlign: "right",
         fontSize: 17,
     },
@@ -62,14 +68,31 @@ const styles = StyleSheet.create({
     innerBarStyle: {
         height:'100%',
         borderRadius: 5,
-        backgroundColor: 'green',
+        backgroundColor: '#008b02',
     },
-    allDevicesAndTotalCapacityStyle: {
+    joinCircleAndAllDevices: {
         flexDirection: "row",
-        justifyContent: 'space-between',
-        // alignItems: 'flex-end',
+        justifyContent: "flex-start",
+    },
+    joinBottomItems: {
+        flexDirection: "row",
+        justifyContent: "space-between",
 
-    }
+    },
+    outerCircle: {
+        borderRadius: 8,
+        width: 16,
+        height: 16,
+        backgroundColor: 'white',
+        padding: 3,
+    },
+    innerCircle: {
+        borderRadius: 4,
+        width: 10,
+        height: 10,
+        backgroundColor: '#c1e1c5'
+    },
+
 });
 
 export { ProgressBar }
