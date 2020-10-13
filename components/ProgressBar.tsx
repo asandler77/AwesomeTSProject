@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 
 export interface ActiveBarProps {
@@ -20,7 +20,10 @@ const ProgressBar = ({totalInternetCapacityAmount, usedInternetCapacityAmount, d
             <View style={styles.progressBar}>
                 <View style={[styles.innerBarStyle, {width: currentPercentage + "%"}]}/>
             </View>
-            <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+            <View style={styles.allDevicesAndTotalCapacityStyle}>
+                <Text>All devices</Text>
+                <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+            </View>
         </View>
     )
 
@@ -30,11 +33,11 @@ const ProgressBar = ({totalInternetCapacityAmount, usedInternetCapacityAmount, d
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F7F6F6',
-        height: '12%',
+        height: 110,
         width: '100%',
         justifyContent: 'space-between',
         paddingVertical: 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         paddingBottom: 10,
         fontSize: 50,
     },
@@ -43,6 +46,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     totalInternetCapacityAmount: {
+        backgroundColor: 'green',
         textAlign: "right",
         fontSize: 17,
     },
@@ -60,6 +64,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'green',
     },
+    allDevicesAndTotalCapacityStyle: {
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        // alignItems: 'flex-end',
+
+    }
 });
 
 export { ProgressBar }
