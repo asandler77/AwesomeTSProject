@@ -4,22 +4,25 @@ import {StyleSheet, Text, View} from 'react-native';
 
 export interface ActiveBarProps {
     currentDeviceUsageInternetCapacityAmount: number,
-    allDevicesUsageInternetCapacityAmount?: number,
+    allDevicesUsageInternetCapacityAmount: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
 
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft}: ActiveBarProps): React.ReactElement => {
+const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount}: ActiveBarProps): React.ReactElement => {
 
-    const currentPercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount *100;
     return (
         <View style={styles.container}>
             <Text style={styles.commonText}>
                 <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used ({daysLeft} days left)
             </Text>
             <View style={styles.progressBar}>
-                <View style={[styles.innerBarStyle, {width: currentPercentage + "%"}]}/>
+                <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
+                    <View style={[styles.innerBarCurrentDeviceStyle, {width: currentDevicePercentage + "%"}]}></View>
+                </View>
             </View>
             <View style={styles.joinBottomItems}>
                 <View style={styles.joinCircleAndAllDevices}>
@@ -65,10 +68,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5,
     },
-    innerBarStyle: {
+    innerBarCurrentDeviceStyle: {
         height:'100%',
         borderRadius: 5,
         backgroundColor: '#008b02',
+    },
+    innerBarAllDevicesStyle: {
+        height:'100%',
+        borderRadius: 5,
+        backgroundColor: '#C1E1C5',
     },
     joinCircleAndAllDevices: {
         flexDirection: "row",
