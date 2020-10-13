@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {Animated, StyleSheet, Text, View} from 'react-native';
 
 
 export interface ActiveBarProps {
@@ -11,14 +11,16 @@ export interface ActiveBarProps {
 //why const and not export default functional component?  ReactElement or ReactNode
 const Capacity = ({totalAmount, currentAmount}: ActiveBarProps): React.ReactElement => {
 
-    const currentPercentage = currentAmount/totalAmount * 100;
+    const currentPercentage = currentAmount / totalAmount * 100;
     return (
         <View style={styles.container}>
-                <Text>{currentAmount}GB</Text>
+            <Text>
+                <Text style={styles.currentAmount}>{currentAmount}GB</Text> used (3 days left)
+            </Text>
             <View style={styles.progressBar}>
-                <Animated.View style={[styles.innerBarStyle, {width: currentPercentage +"%"}]}/>
+                <Animated.View style={[styles.innerBarStyle, {width: currentPercentage + "%"}]}/>
             </View>
-                <Text style={styles.totalAmountContainer}>{totalAmount}GB</Text>
+            <Text style={styles.totalAmountContainer}>{totalAmount}GB</Text>
         </View>
     )
 
@@ -28,14 +30,16 @@ const Capacity = ({totalAmount, currentAmount}: ActiveBarProps): React.ReactElem
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F7F6F6',
-        height: '10%',
+        height: '15%',
         width: '90%',
         justifyContent: 'space-between',
         paddingVertical: 20,
         paddingHorizontal: 10,
         paddingBottom: 10,
     },
-
+    currentAmount: {
+        fontWeight: "bold",
+    },
     totalAmountContainer: {
         backgroundColor: 'green',
         textAlign: "right",
@@ -46,13 +50,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: '#000',
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 5,
     },
     innerBarStyle: {
-        height:15,
-        borderRadius: 10,
+        height:'100%',
+        borderRadius: 5,
         backgroundColor: 'green',
-    }
+    },
 });
 
 export { Capacity }
