@@ -8,16 +8,16 @@
 
 import React from 'react';
 import {StyleSheet, Text, View,} from 'react-native';
-import {Capacity} from './components/Capacity';
+import {ProgressBar} from './components/ProgressBar';
 
 
 export default function App() {
     return (
         <View style={styles.body}>
-            <Text>Header</Text>
-            <Capacity
-                currentAmount={10}
-                totalAmount={50}/>
+            <ProgressBar
+                usedInternetCapacityAmount={10}
+                totalInternetCapacityAmount={50}
+                daysLeft={5}/>
         </View>
     );
 };
