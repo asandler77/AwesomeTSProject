@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F7F6F6',
         height: '12%',
-        width: '96%',
+        width: '100%',
         justifyContent: 'space-between',
         paddingVertical: 20,
         paddingHorizontal: 10,
