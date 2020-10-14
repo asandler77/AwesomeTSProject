@@ -14,6 +14,15 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
     const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
     const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
 
+    const createHeaderPart = () => {
+return (
+    <Text style={styles.commonText}>
+        <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
+        ({daysLeft} days left)
+    </Text>
+)
+    }
+
     const createSingleDeviceProgressBar = () => {
         return (
             <View style={[styles.innerBarCurrentDeviceStyle, {width: currentDevicePercentage + "%"}]}/>
@@ -61,10 +70,7 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
 
     return (
         <View style={styles.container}>
-            <Text style={styles.commonText}>
-                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
-                ({daysLeft} days left)
-            </Text>
+            {createHeaderPart()}
             {createProgressBar()}
             {createBottomPart()}
         </View>
