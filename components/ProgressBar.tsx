@@ -1,13 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
+import {ColoredCircle} from "./ColoredCircle";
 
 export interface ActiveBarProps {
     currentDeviceUsageInternetCapacityAmount: number,
     allDevicesUsageInternetCapacityAmount: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
-
 }
 
 const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount}: ActiveBarProps): React.ReactElement => {
@@ -26,17 +25,16 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
             </View>
             <View style={styles.joinBottomItems}>
                 <View style={styles.joinCircleAndAllDevices}>
-                    <View style={styles.outerCircle}>
-                        <View style={styles.innerCircle}/>
-                    </View>
+                    <ColoredCircle
+                        innerBackGroundColor={'#c1e1c5'}
+                        outerBackGroundColor={'white'}
+                    />
                     <Text> All devices</Text>
                 </View>
                 <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
             </View>
         </View>
-    )
-
-
+    );
 };
 
 const styles = StyleSheet.create({
@@ -55,7 +53,6 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     totalInternetCapacityAmount: {
-        // backgroundColor: 'green',
         textAlign: "right",
         fontSize: 17,
     },
@@ -87,20 +84,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
 
     },
-    outerCircle: {
-        borderRadius: 8,
-        width: 16,
-        height: 16,
-        backgroundColor: 'white',
-        padding: 3,
-    },
-    innerCircle: {
-        borderRadius: 4,
-        width: 10,
-        height: 10,
-        backgroundColor: '#c1e1c5'
-    },
-
 });
 
 export { ProgressBar }
