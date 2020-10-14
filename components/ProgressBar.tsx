@@ -20,6 +20,8 @@ export interface ActiveBarProps {
 const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
     const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
     const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+
+    // maybe to get this value calculated via pops ???
     const usedByAllDevices = () => {
         let totalUsedAmount: number = 0;
         if (usagePerUserData !== null && usagePerUserData.length > 0) {
@@ -70,13 +72,7 @@ return (
         } else {
             return (
                 <View style={styles.joinBottomItems}>
-                    <View style={styles.joinCircleAndAllDevices}>
-                        <ColoredCircle
-                            innerBackGroundColor={'#c1e1c5'}
-                            outerBackGroundColor={'white'}
-                        />
                         <Text> All devices</Text>
-                    </View>
                     <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
                 </View>
             )

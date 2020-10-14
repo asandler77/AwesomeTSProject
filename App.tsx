@@ -25,7 +25,7 @@ export default function App() {
                 allDevicesUsageInternetCapacityAmount={40}
                 totalInternetCapacityAmount={50}
                 daysLeft={5}
-                isMultipleDevicesExists={true}
+                isMultipleDevicesExists={false}
                 usagePerUserData={usagePerUserData}
                 currentUserIndex={1}
             />
