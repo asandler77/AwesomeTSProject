@@ -38,6 +38,27 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
         }
     }
 
+    const createBottomPart = () => {
+        if (!isMultipleDevicesExists) {
+            return (
+                <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+            )
+        } else {
+            return (
+                <View style={styles.joinBottomItems}>
+                    <View style={styles.joinCircleAndAllDevices}>
+                        <ColoredCircle
+                            innerBackGroundColor={'#c1e1c5'}
+                            outerBackGroundColor={'white'}
+                        />
+                        <Text> All devices</Text>
+                    </View>
+                    <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+                </View>
+            )
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.commonText}>
@@ -45,16 +66,7 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
                 ({daysLeft} days left)
             </Text>
             {createProgressBar()}
-            <View style={styles.joinBottomItems}>
-                <View style={styles.joinCircleAndAllDevices}>
-                    <ColoredCircle
-                        innerBackGroundColor={'#c1e1c5'}
-                        outerBackGroundColor={'white'}
-                    />
-                    <Text> All devices</Text>
-                </View>
-                <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
-            </View>
+            {createBottomPart()}
         </View>
     );
 };
