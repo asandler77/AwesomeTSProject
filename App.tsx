@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, View,} from 'react-native';
+import {StyleSheet, View,} from 'react-native';
 import {ProgressBar} from './components/ProgressBar';
 
 
@@ -19,7 +19,7 @@ export default function App() {
                 allDevicesUsageInternetCapacityAmount={40}
                 totalInternetCapacityAmount={50}
                 daysLeft={5}
-            isMultipleDevicesExists={true}/>
+                isMultipleDevicesExists={true}/>
         </View>
     );
 };
