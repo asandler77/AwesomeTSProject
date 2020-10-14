@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {ColoredCircle} from "./ColoredCircle";
 
 export interface UsagePerUser {
     userName: string,
@@ -58,11 +57,14 @@ return (
                 <View style={styles.progressBar}>
                     <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
                         {createSingleDeviceProgressBar()}
+                        {createSingleDeviceProgressBar()}
                     </View>
                 </View>
             )
         }
     }
+
+
 
     const createBottomPart = () => {
         if (!isMultipleDevicesExists) {
@@ -72,7 +74,10 @@ return (
         } else {
             return (
                 <View style={styles.joinBottomItems}>
-                        <Text> All devices</Text>
+                    <View>
+                        <Text> All devices {usedByAllDevices()} GB</Text>
+                        <Text>({daysLeft} days left)</Text>
+                    </View>
                     <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
                 </View>
             )
@@ -101,14 +106,14 @@ const styles = StyleSheet.create({
     },
     currentCapacityAmount: {
         fontWeight: "bold",
-        fontSize: 17,
+        // fontSize: 17,
     },
     totalInternetCapacityAmount: {
         textAlign: "right",
-        fontSize: 17,
+        // fontSize: 17,
     },
     commonText: {
-        fontSize: 17,
+        // fontSize: 17,
     },
     progressBar: {
         height: 12,
@@ -122,6 +127,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#008b02',
     },
     innerBarAllDevicesStyle: {
+        // justifyContent: "flex-start",
+        flexDirection: "row",
         height: '100%',
         borderRadius: 5,
         backgroundColor: '#C1E1C5',
