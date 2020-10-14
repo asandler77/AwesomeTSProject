@@ -2,23 +2,38 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ColoredCircle} from "./ColoredCircle";
 
+export interface UsagePerUser {
+    userName: string,
+    usage: number,
+}
+
 export interface ActiveBarProps {
     currentDeviceUsageInternetCapacityAmount: number,
     allDevicesUsageInternetCapacityAmount: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
     isMultipleDevicesExists: boolean,
+    usagePerUserData: UsagePerUser[],
+    currentUserIndex: number,
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists}: ActiveBarProps): React.ReactElement => {
+const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
     const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
     const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    const usedByAllDevices = () => {
+        let totalUsedAmount: number = 0;
+        if (usagePerUserData !== null && usagePerUserData.length > 0) {
+            for (const x of usagePerUserData) {
+                totalUsedAmount += x.usage
+            }
+            return totalUsedAmount;
+        }
+    }
 
     const createHeaderPart = () => {
 return (
     <Text style={styles.commonText}>
-        <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
-        ({daysLeft} days left)
+        <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used by {usagePerUserData[currentUserIndex].userName}
     </Text>
 )
     }
