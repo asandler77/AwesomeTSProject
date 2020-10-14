@@ -7,22 +7,44 @@ export interface ActiveBarProps {
     allDevicesUsageInternetCapacityAmount: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
+    isMultipleDevicesExists: boolean,
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount}: ActiveBarProps): React.ReactElement => {
-
+const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists}: ActiveBarProps): React.ReactElement => {
     const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
-    const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount *100;
+    const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+
+    const createSingleDeviceProgressBar = () => {
+        return (
+            <View style={[styles.innerBarCurrentDeviceStyle, {width: currentDevicePercentage + "%"}]}/>
+        )
+    }
+
+    const createProgressBar = () => {
+        if (!isMultipleDevicesExists) {
+            return (
+                <View style={styles.progressBar}>
+                    {createSingleDeviceProgressBar()}
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.progressBar}>
+                    <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
+                        {createSingleDeviceProgressBar()}
+                    </View>
+                </View>
+            )
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.commonText}>
-                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used ({daysLeft} days left)
+                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
+                ({daysLeft} days left)
             </Text>
-            <View style={styles.progressBar}>
-                <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
-                    <View style={[styles.innerBarCurrentDeviceStyle, {width: currentDevicePercentage + "%"}]}></View>
-                </View>
-            </View>
+            {createProgressBar()}
             <View style={styles.joinBottomItems}>
                 <View style={styles.joinCircleAndAllDevices}>
                     <ColoredCircle
@@ -66,12 +88,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     innerBarCurrentDeviceStyle: {
-        height:'100%',
+        height: '100%',
         borderRadius: 5,
         backgroundColor: '#008b02',
     },
     innerBarAllDevicesStyle: {
-        height:'100%',
+        height: '100%',
         borderRadius: 5,
         backgroundColor: '#C1E1C5',
     },
@@ -82,8 +104,7 @@ const styles = StyleSheet.create({
     joinBottomItems: {
         flexDirection: "row",
         justifyContent: "space-between",
-
     },
 });
 
-export { ProgressBar }
+export {ProgressBar}

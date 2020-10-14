@@ -18,7 +18,8 @@ export default function App() {
                 currentDeviceUsageInternetCapacityAmount={10}
                 allDevicesUsageInternetCapacityAmount={40}
                 totalInternetCapacityAmount={50}
-                daysLeft={5}/>
+                daysLeft={5}
+            isMultipleDevicesExists={false}/>
         </View>
     );
 };
