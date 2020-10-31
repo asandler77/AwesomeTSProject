@@ -18,7 +18,10 @@ export interface ActiveBarProps {
 
 const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
     const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    console.log('currentDevicePercentage', currentDevicePercentage)
+
     const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
+    console.log('allDevicesPercentage', allDevicesPercentage)
 
     // maybe to get this value calculated via pops ???
     const usedByAllDevices = () => {
@@ -32,44 +35,53 @@ const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCap
     }
 
     const createHeaderPart = () => {
-return (
-    <Text style={styles.commonText}>
-        <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used by {usagePerUserData[currentUserIndex].userName}
-    </Text>
-)
-    }
-
-    const createSingleDeviceProgressBar = () => {
         return (
-            <View style={[styles.innerBarCurrentDeviceStyle, {width: currentDevicePercentage + "%"}]}/>
+            <Text>
+                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
+                by {usagePerUserData[currentUserIndex].userName}
+            </Text>
         )
     }
 
-    const createMultipleUserUsageBar = () => {
-        return createSingleDeviceProgressBar();
+    const personalPercentUsage = (privateUsage: number) => {
+        return privateUsage / totalInternetCapacityAmount * 100;
     }
+
+    const createSingleDeviceProgressBar = (index: number) => {
+        console.log('usagePerUserData', usagePerUserData[index].usage)
+        return (
+            <View
+                style={[styles.innerBarCurrentDeviceStyle, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
+        )
+    }
+
+    // const createMultipleUserUsageBar = () => {
+    // for (let index = 0; index < usagePerUserData.length; index++) {
+    //   {createSingleDeviceProgressBar(0)}
+    // console.log('index', index);
+    // }
+    // }
 
     const createProgressBar = () => {
         if (!isMultipleDevicesExists) {
             return (
                 <View style={styles.progressBar}>
-                    {createSingleDeviceProgressBar()}
+                    {createSingleDeviceProgressBar(0)}
                 </View>
             )
         } else {
             return (
                 <View style={styles.progressBar}>
                     <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
-                        {/*{createSingleDeviceProgressBar()}*/}
-                        {/*{createSingleDeviceProgressBar()}*/}
-                        {createMultipleUserUsageBar()}
+                        {createSingleDeviceProgressBar(0)}
+                        {createSingleDeviceProgressBar(1)}
+                        {createSingleDeviceProgressBar(2)}
+                        {createSingleDeviceProgressBar(3)}
                     </View>
                 </View>
             )
         }
     }
-
-
 
     const createBottomPart = () => {
         if (!isMultipleDevicesExists) {
@@ -117,9 +129,6 @@ const styles = StyleSheet.create({
         textAlign: "right",
         // fontSize: 17,
     },
-    commonText: {
-        // fontSize: 17,
-    },
     progressBar: {
         height: 12,
         width: '100%',
@@ -135,7 +144,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: '100%',
         borderRadius: 5,
-        backgroundColor: '#C1E1C5',
+        backgroundColor: 'red',
     },
     joinCircleAndAllDevices: {
         flexDirection: "row",
