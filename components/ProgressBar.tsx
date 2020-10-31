@@ -7,14 +7,14 @@ export interface UsagePerUser {
 }
 
 export interface ActiveBarProps {
-    totalInternetCapacityAmount: number,
+    maximumAllowedCapacityAmount: number,
     daysLeft: number,
     isMultipleDevicesExists: boolean,
     usagePerUserData: UsagePerUser[],
     currentUserIndex: number,
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
+const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
 
 
     const usedByAllDevices = () => {
@@ -28,7 +28,7 @@ const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesEx
     }
 
     const allDevicesActualCapacityAmount = usedByAllDevices();
-    const allDevicesPercentage = allDevicesActualCapacityAmount / totalInternetCapacityAmount * 100;
+    const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
 
     const createHeaderPart = () => {
         return (
@@ -40,7 +40,7 @@ const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesEx
     }
 
     const personalPercentUsage = (privateUsage: number) => {
-        return privateUsage / totalInternetCapacityAmount * 100;
+        return privateUsage / maximumAllowedCapacityAmount * 100;
     }
 
     const createSingleDeviceProgressBar = (index: number) => {
@@ -50,13 +50,6 @@ const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesEx
                 style={[styles.innerBarCurrentDeviceStyle, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
         )
     }
-
-    // const createMultipleUserUsageBar = () => {
-    // for (let index = 0; index < usagePerUserData.length; index++) {
-    //   {createSingleDeviceProgressBar(0)}
-    // console.log('index', index);
-    // }
-    // }
 
     const createProgressBar = () => {
         if (!isMultipleDevicesExists) {
@@ -82,7 +75,7 @@ const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesEx
     const createBottomPart = () => {
         if (!isMultipleDevicesExists) {
             return (
-                <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+                <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
             )
         } else {
             return (
@@ -91,7 +84,7 @@ const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesEx
                         <Text> All devices {usedByAllDevices()} GB</Text>
                         <Text>({daysLeft} days left)</Text>
                     </View>
-                    <Text style={styles.totalInternetCapacityAmount}>{totalInternetCapacityAmount}GB</Text>
+                    <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
                 </View>
             )
         }
