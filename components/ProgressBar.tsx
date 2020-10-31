@@ -7,8 +7,6 @@ export interface UsagePerUser {
 }
 
 export interface ActiveBarProps {
-    currentDeviceUsageInternetCapacityAmount: number,
-    allDevicesUsageInternetCapacityAmount: number,
     totalInternetCapacityAmount: number,
     daysLeft: number,
     isMultipleDevicesExists: boolean,
@@ -16,28 +14,26 @@ export interface ActiveBarProps {
     currentUserIndex: number,
 }
 
-const ProgressBar = ({totalInternetCapacityAmount, currentDeviceUsageInternetCapacityAmount, daysLeft, allDevicesUsageInternetCapacityAmount, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
-    const currentDevicePercentage = currentDeviceUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
-    console.log('currentDevicePercentage', currentDevicePercentage)
+const ProgressBar = ({totalInternetCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
 
-    const allDevicesPercentage = allDevicesUsageInternetCapacityAmount / totalInternetCapacityAmount * 100;
-    console.log('allDevicesPercentage', allDevicesPercentage)
 
-    // maybe to get this value calculated via pops ???
     const usedByAllDevices = () => {
         let totalUsedAmount: number = 0;
         if (usagePerUserData !== null && usagePerUserData.length > 0) {
             for (const x of usagePerUserData) {
                 totalUsedAmount += x.usage
             }
-            return totalUsedAmount;
         }
+        return totalUsedAmount;
     }
+
+    const allDevicesActualCapacityAmount = usedByAllDevices();
+    const allDevicesPercentage = allDevicesActualCapacityAmount / totalInternetCapacityAmount * 100;
 
     const createHeaderPart = () => {
         return (
             <Text>
-                <Text style={styles.currentCapacityAmount}>{currentDeviceUsageInternetCapacityAmount}GB</Text> used
+                <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
                 by {usagePerUserData[currentUserIndex].userName}
             </Text>
         )

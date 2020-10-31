@@ -21,8 +21,6 @@ export default function App() {
     return (
         <View style={styles.body}>
             <ProgressBar
-                currentDeviceUsageInternetCapacityAmount={10}
-                allDevicesUsageInternetCapacityAmount={50}
                 totalInternetCapacityAmount={50}
                 daysLeft={5}
                 isMultipleDevicesExists={true}
