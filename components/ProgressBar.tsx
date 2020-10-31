@@ -45,6 +45,10 @@ return (
         )
     }
 
+    const createMultipleUserUsageBar = () => {
+        return createSingleDeviceProgressBar();
+    }
+
     const createProgressBar = () => {
         if (!isMultipleDevicesExists) {
             return (
@@ -56,8 +60,9 @@ return (
             return (
                 <View style={styles.progressBar}>
                     <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
-                        {createSingleDeviceProgressBar()}
-                        {createSingleDeviceProgressBar()}
+                        {/*{createSingleDeviceProgressBar()}*/}
+                        {/*{createSingleDeviceProgressBar()}*/}
+                        {createMultipleUserUsageBar()}
                     </View>
                 </View>
             )
@@ -127,7 +132,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#008b02',
     },
     innerBarAllDevicesStyle: {
-        // justifyContent: "flex-start",
         flexDirection: "row",
         height: '100%',
         borderRadius: 5,
