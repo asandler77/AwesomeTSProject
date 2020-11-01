@@ -10,7 +10,7 @@ interface BottomPartProps {
     usagePerUserData: UsagePerUser[],
 }
 
-const BottomPart = ({isMultipleDevicesExists, daysLeft, maximumAllowedCapacityAmount, usagePerUserData} : BottomPartProps) => {
+const BottomPart = ({isMultipleDevicesExists, daysLeft, maximumAllowedCapacityAmount, usagePerUserData}: BottomPartProps) => {
     if (!isMultipleDevicesExists) {
         return (
             <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>

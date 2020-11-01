@@ -1,10 +1,8 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-
-import {IMAGES} from '../assets/images';
+import {StyleSheet, View} from 'react-native';
 import {HeaderPart} from "./HeaderPart";
-import {calculateDataUsedByAllDevices} from "./utils";
 import {BottomPart} from "./BottomPart";
+import {ProgressBarPart} from "./ProgressBarPart";
 
 export interface UsagePerUser {
     userName: string,
@@ -22,48 +20,18 @@ export interface ActiveBarProps {
 
 const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex, usageLimitWarningLevel}: ActiveBarProps): React.ReactElement => {
 
-    const allDevicesActualCapacityAmount = calculateDataUsedByAllDevices(usagePerUserData);
-    const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
-
-    const personalPercentUsage = (privateUsage: number) => {
-        return privateUsage / maximumAllowedCapacityAmount * 100;
-    }
-
-    const createSingleDeviceProgressBar = (index: number) => {
-        return (
-            <View
-                key={index}
-                style={[styles.innerBarCurrentDevice, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
-        )
-    }
-
-    const createProgressBar = () => {
-        if (!isMultipleDevicesExists) {
-            return (
-                <View style={styles.progressBar}>
-                    {createSingleDeviceProgressBar(0)}
-                </View>
-            )
-        }
-        return (
-            <View style={styles.progressBar}>
-                <View style={[styles.innerBarAllDevices, {width: allDevicesPercentage + "%"}]}>
-                    {usagePerUserData.map((item, index) => createSingleDeviceProgressBar(index))}
-                </View>
-            </View>
-        )
-    }
-
     return (
         <View style={styles.container}>
             <HeaderPart usagePerUserData={usagePerUserData}
                         currentUserIndex={currentUserIndex}
                         usageLimitWarningLevel={usageLimitWarningLevel}/>
-            {createProgressBar()}
+            <ProgressBarPart isMultipleDevicesExists={isMultipleDevicesExists}
+                             usagePerUserData={usagePerUserData}
+                             maximumAllowedCapacityAmount={maximumAllowedCapacityAmount}/>
             <BottomPart isMultipleDevicesExists={isMultipleDevicesExists}
                         daysLeft={daysLeft}
                         maximumAllowedCapacityAmount={maximumAllowedCapacityAmount}
-                        usagePerUserData={usagePerUserData} />
+                        usagePerUserData={usagePerUserData}/>
         </View>
     );
 };
@@ -78,23 +46,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 10,
         fontSize: 50,
-    },
-    progressBar: {
-        height: 12,
-        width: '100%',
-        backgroundColor: 'white',
-        borderRadius: 5,
-    },
-    innerBarCurrentDevice: {
-        height: '100%',
-        borderRadius: 5,
-        backgroundColor: '#008b02',
-    },
-    innerBarAllDevices: {
-        flexDirection: "row",
-        height: '100%',
-        borderRadius: 5,
-        backgroundColor: 'white',
     },
     joinCircleAndAllDevices: {
         flexDirection: "row",
