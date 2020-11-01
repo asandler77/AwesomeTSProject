@@ -13,10 +13,10 @@ import {ProgressBar, UsagePerUser} from './components/ProgressBar';
 
 export default function App() {
     const usagePerUserData: UsagePerUser[] = [];
-    usagePerUserData.push({userName: "Alexey", usage: 5});
-    usagePerUserData.push({userName: "John", usage: 10});
+    usagePerUserData.push({userName: "Alexey", usage: 10});
+    usagePerUserData.push({userName: "John", usage: 15});
     usagePerUserData.push({userName: "Bill", usage: 10});
-    usagePerUserData.push({userName: "Anton", usage: 5});
+    usagePerUserData.push({userName: "Anton", usage: 10});
 
     return (
         <View style={styles.body}>
@@ -26,7 +26,7 @@ export default function App() {
                 isMultipleDevicesExists={true}
                 usagePerUserData={usagePerUserData}
                 currentUserIndex={0}
-                usageLimitWarningLevel={50}
+                usageLimitWarningLevel={30}
             />
         </View>
     );

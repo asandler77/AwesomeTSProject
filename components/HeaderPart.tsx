@@ -37,8 +37,8 @@ const HeaderPart = ({usagePerUserData, currentUserIndex, usageLimitWarningLevel}
 }
 const styles = StyleSheet.create({
     image: {
-        height: 24,
-        width: 27,
+        height: 20,
+        width: 20,
     },
     joinBottomItems: {
         flexDirection: "row",
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     },
     currentCapacityAmount: {
         fontWeight: "bold",
-        // fontSize: 17,
     },
 });
 
