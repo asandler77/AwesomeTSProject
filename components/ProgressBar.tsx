@@ -4,6 +4,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {IMAGES} from '../assets/images';
 import {HeaderPart} from "./HeaderPart";
 import {calculateDataUsedByAllDevices} from "./utils";
+import {BottomPart} from "./BottomPart";
 
 export interface UsagePerUser {
     userName: string,
@@ -22,47 +23,15 @@ export interface ActiveBarProps {
 const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex, usageLimitWarningLevel}: ActiveBarProps): React.ReactElement => {
 
 
-    // const usedByAllDevices = () => {
-    //     let totalUsedAmount: number = 0;
-    //     if (usagePerUserData !== null && usagePerUserData.length > 0) {
-    //         for (const x of usagePerUserData) {
-    //             totalUsedAmount += x.usage
-    //         }
-    //     }
-    //     return totalUsedAmount;
-    // }
-
     const allDevicesActualCapacityAmount = calculateDataUsedByAllDevices(usagePerUserData);
     const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
 
-    // const showUsageWarning = () => {
-    //     if (allDevicesActualCapacityAmount > usageLimitWarningLevel) {
-    //         return (
-    //             <Image
-    //                 testID={'warning_image_testID'}
-    //                 source={IMAGES.USAGE_WARNING}
-    //                 style={styles.image}
-    //             />
-    //         )
-    //     }
-    // }
-
-
     const createHeaderPart = () => {
-        return(
-            <HeaderPart usagePerUserData={usagePerUserData} currentUserIndex={currentUserIndex} usageLimitWarningLevel={usageLimitWarningLevel} />
-        )
-    //     return (
-    //         <View style={styles.joinBottomItems}>
-    //             <Text>
-    //                 <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
-    //                 by {usagePerUserData[currentUserIndex].userName}
-    //             </Text>
-    //             {showUsageWarning()}
-    //         </View>
-    //     )
+        return (
+            <HeaderPart usagePerUserData={usagePerUserData} currentUserIndex={currentUserIndex}
+                        usageLimitWarningLevel={usageLimitWarningLevel}/>
+        );
     }
-    // <HeaderPart
 
     const personalPercentUsage = (privateUsage: number) => {
         return privateUsage / maximumAllowedCapacityAmount * 100;
@@ -94,21 +63,12 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
     }
 
     const createBottomPart = () => {
-        if (!isMultipleDevicesExists) {
-            return (
-                <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
-            )
-        } else {
-            return (
-                <View style={styles.joinBottomItems}>
-                    <View>
-                        <Text> All devices {calculateDataUsedByAllDevices(usagePerUserData)} GB</Text>
-                        <Text>({daysLeft} days left)</Text>
-                    </View>
-                    <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
-                </View>
-            )
-        }
+        return(
+            <BottomPart isMultipleDevicesExists={isMultipleDevicesExists}
+                        daysLeft={daysLeft}
+                        maximumAllowedCapacityAmount={maximumAllowedCapacityAmount}
+                        usagePerUserData={usagePerUserData} />
+        )
     }
 
     return (
@@ -135,10 +95,10 @@ const styles = StyleSheet.create({
     //     fontWeight: "bold",
     //     // fontSize: 17,
     // },
-    totalInternetCapacityAmount: {
-        textAlign: "right",
-        // fontSize: 17,
-    },
+    // totalInternetCapacityAmount: {
+    //     textAlign: "right",
+    //     // fontSize: 17,
+    // },
     progressBar: {
         height: 12,
         width: '100%',
@@ -160,10 +120,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
     },
-    joinBottomItems: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
+    // joinBottomItems: {
+    //     flexDirection: "row",
+    //     justifyContent: "space-between",
+    // },
     // image: {
     //     height: 24,
     //     width: 27,

@@ -4,13 +4,13 @@ import {UsagePerUser} from "./ProgressBar";
 import {IMAGES} from "../assets/images";
 import {calculateDataUsedByAllDevices} from "./utils";
 
-interface HeaderProps {
+interface HeaderPartProps {
     usagePerUserData: UsagePerUser[],
     currentUserIndex: number,
     usageLimitWarningLevel: number,
 }
 
-const HeaderPart = ({usagePerUserData, currentUserIndex, usageLimitWarningLevel}: HeaderProps) => {
+const HeaderPart = ({usagePerUserData, currentUserIndex, usageLimitWarningLevel}: HeaderPartProps) => {
 
     const allDevicesActualCapacityAmount = calculateDataUsedByAllDevices(usagePerUserData);
     const showUsageWarning = () => {
