@@ -19,7 +19,7 @@ describe('ProgressBar component ', () => {
         <HeaderPart
             usagePerUserData={usagePerUserData}
             currentUserIndex={0}
-            usageLimitWarningLevel={60}
+            usageLimitWarningLevel={40}
         />)
 
     test('renders warning icon', () => {
