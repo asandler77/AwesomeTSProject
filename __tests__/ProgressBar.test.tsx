@@ -1,7 +1,6 @@
 import React from 'react';
 import {ProgressBar, UsagePerUser} from '../components/ProgressBar';
 import {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 
 
 
@@ -14,6 +13,10 @@ describe('ProgressBar component ', () => {
     usagePerUserData.push({userName: "Bill", usage: 20});
     usagePerUserData.push({userName: "Anton", usage: 15});
 
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     const wrapper = shallow(
         <ProgressBar maximumAllowedCapacityAmount={50}
                      daysLeft={5}
@@ -23,6 +26,12 @@ describe('ProgressBar component ', () => {
                      usageLimitWarningLevel={40} />)
 
     test('renders warning icon', () => {
-        expect(wrapper.find(`[testID='warning_image_testID']`)).toBeDefined();
+        expect(wrapper.find(`[testID='warning_image_testID']`)).toHaveLength(1);
+    })
+
+    test('does not render warning icon', () => {
+        wrapper.setProps({usageLimitWarningLevel: 50});
+        expect(wrapper.find(`[testID='warning_image_testID']`)).toHaveLength(0);
+
     })
 })

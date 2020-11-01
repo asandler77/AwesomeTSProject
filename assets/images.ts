@@ -1,5 +1,4 @@
-const PATH = './assets/'
-const IMAGES = {
-    // PINPOINT: require(PATH + 'pinpoint.png'),
+const PATH = '../assets/'
+export const IMAGES = {
     USAGE_WARNING: require(PATH + 'roundArrowRight.png')
 }

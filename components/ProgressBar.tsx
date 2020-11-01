@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-// import IMAGES from '../assets/images';
+import {IMAGES} from '../assets/images';
 
 export interface UsagePerUser {
     userName: string,
@@ -37,7 +37,8 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
             if(allDevicesActualCapacityAmount > usageLimitWarningLevel) {
                 return(
                 <Image
-                    source={require('../assets/roundArrowRight.png')}
+                    testID={'warning_image_testID'}
+                    source={IMAGES.USAGE_WARNING}
                     style={styles.imageStyle}
                 />
                 )
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: '100%',
         borderRadius: 5,
-        backgroundColor: 'red',
+        backgroundColor: 'white',
     },
     joinCircleAndAllDevices: {
         flexDirection: "row",
