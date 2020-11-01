@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
+
+// import IMAGES from '../assets/images';
 
 export interface UsagePerUser {
     userName: string,
@@ -12,9 +14,10 @@ export interface ActiveBarProps {
     isMultipleDevicesExists: boolean,
     usagePerUserData: UsagePerUser[],
     currentUserIndex: number,
+    usageLimitWarningLevel: number,
 }
 
-const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex}: ActiveBarProps): React.ReactElement => {
+const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex, usageLimitWarningLevel}: ActiveBarProps): React.ReactElement => {
 
 
     const usedByAllDevices = () => {
@@ -30,12 +33,27 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
     const allDevicesActualCapacityAmount = usedByAllDevices();
     const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
 
+    const showUsageWarning = () => {
+            if(allDevicesActualCapacityAmount > usageLimitWarningLevel) {
+                return(
+                <Image
+                    source={require('../assets/roundArrowRight.png')}
+                    style={styles.imageStyle}
+                />
+                )
+            }
+    }
+
+
     const createHeaderPart = () => {
         return (
-            <Text>
-                <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
-                by {usagePerUserData[currentUserIndex].userName}
-            </Text>
+            <View style={styles.joinBottomItems}>
+                <Text>
+                    <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
+                    by {usagePerUserData[currentUserIndex].userName}
+                </Text>
+                {showUsageWarning()}
+            </View>
         )
     }
 
@@ -142,6 +160,10 @@ const styles = StyleSheet.create({
     joinBottomItems: {
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    imageStyle: {
+        height: 36,
+        width: 27,
     },
 });
 

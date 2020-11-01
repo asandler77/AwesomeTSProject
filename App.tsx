@@ -26,6 +26,7 @@ export default function App() {
                 isMultipleDevicesExists={true}
                 usagePerUserData={usagePerUserData}
                 currentUserIndex={0}
+                usageLimitWarningLevel={40}
             />
         </View>
     );
