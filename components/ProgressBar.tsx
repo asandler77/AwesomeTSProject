@@ -62,9 +62,9 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
     }
 
     const createSingleDeviceProgressBar = (index: number) => {
-        console.log('usagePerUserData', usagePerUserData[index].usage)
         return (
             <View
+                key={index}
                 style={[styles.innerBarCurrentDeviceStyle, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
         )
     }
@@ -80,10 +80,8 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
             return (
                 <View style={styles.progressBar}>
                     <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
-                        {createSingleDeviceProgressBar(0)}
-                        {createSingleDeviceProgressBar(1)}
-                        {createSingleDeviceProgressBar(2)}
-                        {createSingleDeviceProgressBar(3)}
+                        {usagePerUserData.map((item, index) => createSingleDeviceProgressBar(index))}
+
                     </View>
                 </View>
             )
