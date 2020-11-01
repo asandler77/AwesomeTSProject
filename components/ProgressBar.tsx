@@ -34,15 +34,15 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
     const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
 
     const showUsageWarning = () => {
-            if(allDevicesActualCapacityAmount > usageLimitWarningLevel) {
-                return(
+        if (allDevicesActualCapacityAmount > usageLimitWarningLevel) {
+            return (
                 <Image
                     testID={'warning_image_testID'}
                     source={IMAGES.USAGE_WARNING}
                     style={styles.imageStyle}
                 />
-                )
-            }
+            )
+        }
     }
 
 
@@ -77,16 +77,14 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
                     {createSingleDeviceProgressBar(0)}
                 </View>
             )
-        } else {
-            return (
-                <View style={styles.progressBar}>
-                    <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
-                        {usagePerUserData.map((item, index) => createSingleDeviceProgressBar(index))}
-
-                    </View>
-                </View>
-            )
         }
+        return (
+            <View style={styles.progressBar}>
+                <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
+                    {usagePerUserData.map((item, index) => createSingleDeviceProgressBar(index))}
+                </View>
+            </View>
+        )
     }
 
     const createBottomPart = () => {
@@ -161,7 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     imageStyle: {
-        height: 36,
+        height: 24,
         width: 27,
     },
 });
