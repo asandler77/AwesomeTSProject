@@ -22,16 +22,8 @@ export interface ActiveBarProps {
 
 const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex, usageLimitWarningLevel}: ActiveBarProps): React.ReactElement => {
 
-
     const allDevicesActualCapacityAmount = calculateDataUsedByAllDevices(usagePerUserData);
     const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
-
-    const createHeaderPart = () => {
-        return (
-            <HeaderPart usagePerUserData={usagePerUserData} currentUserIndex={currentUserIndex}
-                        usageLimitWarningLevel={usageLimitWarningLevel}/>
-        );
-    }
 
     const personalPercentUsage = (privateUsage: number) => {
         return privateUsage / maximumAllowedCapacityAmount * 100;
@@ -62,20 +54,16 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
         )
     }
 
-    const createBottomPart = () => {
-        return(
+    return (
+        <View style={styles.container}>
+            <HeaderPart usagePerUserData={usagePerUserData}
+                        currentUserIndex={currentUserIndex}
+                        usageLimitWarningLevel={usageLimitWarningLevel}/>
+            {createProgressBar()}
             <BottomPart isMultipleDevicesExists={isMultipleDevicesExists}
                         daysLeft={daysLeft}
                         maximumAllowedCapacityAmount={maximumAllowedCapacityAmount}
                         usagePerUserData={usagePerUserData} />
-        )
-    }
-
-    return (
-        <View style={styles.container}>
-            {createHeaderPart()}
-            {createProgressBar()}
-            {createBottomPart()}
         </View>
     );
 };
@@ -91,14 +79,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 50,
     },
-    // currentCapacityAmount: {
-    //     fontWeight: "bold",
-    //     // fontSize: 17,
-    // },
-    // totalInternetCapacityAmount: {
-    //     textAlign: "right",
-    //     // fontSize: 17,
-    // },
     progressBar: {
         height: 12,
         width: '100%',
@@ -120,14 +100,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
     },
-    // joinBottomItems: {
-    //     flexDirection: "row",
-    //     justifyContent: "space-between",
-    // },
-    // image: {
-    //     height: 24,
-    //     width: 27,
-    // },
 });
 
 export {ProgressBar}
