@@ -2,6 +2,8 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
 import {IMAGES} from '../assets/images';
+import {HeaderPart} from "./HeaderPart";
+import {calculateDataUsedByAllDevices} from "./utils";
 
 export interface UsagePerUser {
     userName: string,
@@ -20,43 +22,47 @@ export interface ActiveBarProps {
 const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesExists, usagePerUserData, currentUserIndex, usageLimitWarningLevel}: ActiveBarProps): React.ReactElement => {
 
 
-    const usedByAllDevices = () => {
-        let totalUsedAmount: number = 0;
-        if (usagePerUserData !== null && usagePerUserData.length > 0) {
-            for (const x of usagePerUserData) {
-                totalUsedAmount += x.usage
-            }
-        }
-        return totalUsedAmount;
-    }
+    // const usedByAllDevices = () => {
+    //     let totalUsedAmount: number = 0;
+    //     if (usagePerUserData !== null && usagePerUserData.length > 0) {
+    //         for (const x of usagePerUserData) {
+    //             totalUsedAmount += x.usage
+    //         }
+    //     }
+    //     return totalUsedAmount;
+    // }
 
-    const allDevicesActualCapacityAmount = usedByAllDevices();
+    const allDevicesActualCapacityAmount = calculateDataUsedByAllDevices(usagePerUserData);
     const allDevicesPercentage = allDevicesActualCapacityAmount / maximumAllowedCapacityAmount * 100;
 
-    const showUsageWarning = () => {
-        if (allDevicesActualCapacityAmount > usageLimitWarningLevel) {
-            return (
-                <Image
-                    testID={'warning_image_testID'}
-                    source={IMAGES.USAGE_WARNING}
-                    style={styles.imageStyle}
-                />
-            )
-        }
-    }
+    // const showUsageWarning = () => {
+    //     if (allDevicesActualCapacityAmount > usageLimitWarningLevel) {
+    //         return (
+    //             <Image
+    //                 testID={'warning_image_testID'}
+    //                 source={IMAGES.USAGE_WARNING}
+    //                 style={styles.image}
+    //             />
+    //         )
+    //     }
+    // }
 
 
     const createHeaderPart = () => {
-        return (
-            <View style={styles.joinBottomItems}>
-                <Text>
-                    <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
-                    by {usagePerUserData[currentUserIndex].userName}
-                </Text>
-                {showUsageWarning()}
-            </View>
+        return(
+            <HeaderPart usagePerUserData={usagePerUserData} currentUserIndex={currentUserIndex} usageLimitWarningLevel={usageLimitWarningLevel} />
         )
+    //     return (
+    //         <View style={styles.joinBottomItems}>
+    //             <Text>
+    //                 <Text style={styles.currentCapacityAmount}>{usagePerUserData[currentUserIndex].usage}GB</Text> used
+    //                 by {usagePerUserData[currentUserIndex].userName}
+    //             </Text>
+    //             {showUsageWarning()}
+    //         </View>
+    //     )
     }
+    // <HeaderPart
 
     const personalPercentUsage = (privateUsage: number) => {
         return privateUsage / maximumAllowedCapacityAmount * 100;
@@ -66,7 +72,7 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
         return (
             <View
                 key={index}
-                style={[styles.innerBarCurrentDeviceStyle, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
+                style={[styles.innerBarCurrentDevice, {width: personalPercentUsage(usagePerUserData[index].usage) + "%"}]}/>
         )
     }
 
@@ -80,7 +86,7 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
         }
         return (
             <View style={styles.progressBar}>
-                <View style={[styles.innerBarAllDevicesStyle, {width: allDevicesPercentage + "%"}]}>
+                <View style={[styles.innerBarAllDevices, {width: allDevicesPercentage + "%"}]}>
                     {usagePerUserData.map((item, index) => createSingleDeviceProgressBar(index))}
                 </View>
             </View>
@@ -96,7 +102,7 @@ const ProgressBar = ({maximumAllowedCapacityAmount, daysLeft, isMultipleDevicesE
             return (
                 <View style={styles.joinBottomItems}>
                     <View>
-                        <Text> All devices {usedByAllDevices()} GB</Text>
+                        <Text> All devices {calculateDataUsedByAllDevices(usagePerUserData)} GB</Text>
                         <Text>({daysLeft} days left)</Text>
                     </View>
                     <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
@@ -125,10 +131,10 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 50,
     },
-    currentCapacityAmount: {
-        fontWeight: "bold",
-        // fontSize: 17,
-    },
+    // currentCapacityAmount: {
+    //     fontWeight: "bold",
+    //     // fontSize: 17,
+    // },
     totalInternetCapacityAmount: {
         textAlign: "right",
         // fontSize: 17,
@@ -139,12 +145,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5,
     },
-    innerBarCurrentDeviceStyle: {
+    innerBarCurrentDevice: {
         height: '100%',
         borderRadius: 5,
         backgroundColor: '#008b02',
     },
-    innerBarAllDevicesStyle: {
+    innerBarAllDevices: {
         flexDirection: "row",
         height: '100%',
         borderRadius: 5,
@@ -158,10 +164,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
     },
-    imageStyle: {
-        height: 24,
-        width: 27,
-    },
+    // image: {
+    //     height: 24,
+    //     width: 27,
+    // },
 });
 
 export {ProgressBar}
