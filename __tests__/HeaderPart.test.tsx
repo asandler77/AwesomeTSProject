@@ -1,11 +1,7 @@
 import React from 'react';
-import {ProgressBar, UsagePerUser} from '../components/ProgressBar';
 import {shallow} from 'enzyme';
-import {createUsagePerUserData} from "./utils.test";
-import {ProgressBarPart} from "../components/ProgressBarPart";
+import {createUsagePerUserData} from "../components/progressBar.mock";
 import {HeaderPart} from "../components/HeaderPart";
-
-
 
 
 describe('ProgressBar component ', () => {

@@ -1,4 +1,4 @@
-import {UsagePerUser} from "../components/ProgressBar";
+import {UsagePerUser} from "./ProgressBar";
 
 export const createUsagePerUserData = (): UsagePerUser[] => {
     let usagePerUserData: UsagePerUser[] = [];
