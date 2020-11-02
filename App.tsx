@@ -23,7 +23,7 @@ export default function App() {
             <ProgressBar
                 maximumAllowedCapacityAmount={50}
                 daysLeft={5}
-                isMultipleDevicesExists={true}
+                isMultipleDevicesExists={false}
                 usagePerUserData={usagePerUserData}
                 currentUserIndex={0}
                 usageLimitWarningLevel={30}

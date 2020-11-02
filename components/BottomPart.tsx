@@ -13,19 +13,24 @@ interface BottomPartProps {
 const BottomPart = ({isMultipleDevicesExists, daysLeft, maximumAllowedCapacityAmount, usagePerUserData}: BottomPartProps) => {
     if (!isMultipleDevicesExists) {
         return (
-            <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
-        )
-    } else {
-        return (
-            <View style={styles.joinBottomItems}>
-                <View>
-                    <Text> All devices {calculateDataUsedByAllDevices(usagePerUserData)} GB</Text>
-                    <Text>({daysLeft} days left)</Text>
-                </View>
-                <Text style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
+            <View>
+                <Text testID={'singleDeviceMaximumCapacityAllowed'}
+                      style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
+                <Text testID={'daysLeft'}>({daysLeft} days left)</Text>
             </View>
         )
     }
+    return (
+        <View style={styles.joinBottomItems}>
+            <View>
+                <Text testID={'calculateDataUsedByAllDevices'}> All
+                    devices {calculateDataUsedByAllDevices(usagePerUserData)} GB</Text>
+                <Text testID={'daysLeft'}>({daysLeft} days left)</Text>
+            </View>
+            <Text testID={'multipleDeviceMaximumCapacityAllowed'}
+                  style={styles.totalInternetCapacityAmount}>{maximumAllowedCapacityAmount}GB</Text>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
